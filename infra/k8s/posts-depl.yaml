@@ -13,12 +13,14 @@ spec:
   template:
     metadata:
       labels:
+        #kind of css classes
         app: posts
     #pod configuration
     spec:
       containers:
       - name: posts
-        image: fanmixco/posts
+        image: fanmixco/posts:latest
+        #imagePullPolicy: Never
         resources:
           limits:
             memory: "128Mi"

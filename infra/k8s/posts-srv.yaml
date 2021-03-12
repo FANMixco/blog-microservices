@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: posts-srv
+spec:
+  type: NodePort
+  #exposes pods to the outside world for TEST ONLY
+  selector:
+    app: posts
+  ports:
+  - name: posts
+    protocol: TCP
+    #external port
+    port: 4000
+    #internal port
+    targetPort: 4000
