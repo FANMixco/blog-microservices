@@ -1,0 +1,40 @@
+#collection of buckets
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: comments-depl
+spec:
+  replicas: 1
+  #take a look of all created pods with the name comments
+  selector:
+    matchLabels:
+      app: comments
+  #exact configuration of the pod to create
+  template:
+    metadata:
+      labels:
+        #kind of css classes
+        app: comments
+    #pod configuration
+    spec:
+      containers:
+      - name: comments
+        image: fanmixco/comments:latest
+        #imagePullPolicy: Never
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: comments-srv
+spec:
+  selector:
+    app: comments
+  ports:
+    - name: comments
+      protocol: TCP
+      port: 4001
+      targetPort: 4001

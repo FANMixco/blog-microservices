@@ -1,0 +1,40 @@
+#collection of buckets
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: query-depl
+spec:
+  replicas: 1
+  #take a look of all created pods with the name query
+  selector:
+    matchLabels:
+      app: query
+  #exact configuration of the pod to create
+  template:
+    metadata:
+      labels:
+        #kind of css classes
+        app: query
+    #pod configuration
+    spec:
+      containers:
+      - name: query
+        image: fanmixco/query:latest
+        #imagePullPolicy: Never
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: query-srv
+spec:
+  selector:
+    app: query
+  ports:
+    - name: query
+      protocol: TCP
+      port: 4002
+      targetPort: 4002
