@@ -1,5 +1,4 @@
 const express = require('express');
-//const bodyParser = require('body-parser');
 const axios = require('axios');
 
 const app = express();
@@ -12,18 +11,22 @@ app.post('/events', (req, res) => {
 
   events.push(event);
 
+  //posts
   axios.post('http://posts-clusterip-srv:4000/events', event).catch((err) => {
     console.log(err.message);
   });
-  // axios.post('http://localhost:4001/events', event).catch((err) => {
-  //   console.log(err.message);
-  // });
-  // axios.post('http://localhost:4002/events', event).catch((err) => {
-  //   console.log(err.message);
-  // });
-  // axios.post('http://localhost:4003/events', event).catch((err) => {
-  //   console.log(err.message);
-  // });
+  //comments
+  axios.post('http://posts-clusterip-srv:4001/events', event).catch((err) => {
+    console.log(err.message);
+  });
+  //query
+  axios.post('http://posts-clusterip-srv:4002/events', event).catch((err) => {
+    console.log(err.message);
+  });
+  //moderation
+  axios.post('http://posts-clusterip-srv:4003/events', event).catch((err) => {
+    console.log(err.message);
+  });
 
   //pre-nodejs 15
   // axios.post('http://posts-cluster-srv:4000/events', event);
