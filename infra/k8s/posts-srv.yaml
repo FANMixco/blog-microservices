@@ -14,3 +14,4 @@ spec:
     port: 4000
     #internal port
     targetPort: 4000
+#the node port exposed to the web is located in describe 
