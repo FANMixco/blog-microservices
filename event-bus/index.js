@@ -17,15 +17,15 @@ app.post('/events', (req, res) => {
     console.log(err.message);
   });
   //comments
-  axios.post('http://comments:4001/events', event).catch((err) => {
+  axios.post('http://comments-srv:4001/events', event).catch((err) => {
     console.log(err.message);
   });
   //query
-  axios.post('http://query:4002/events', event).catch((err) => {
+  axios.post('http://query-srv:4002/events', event).catch((err) => {
     console.log(err.message);
   });
   //moderation
-  axios.post('http://moderation:4003/events', event).catch((err) => {
+  axios.post('http://moderation-srv:4003/events', event).catch((err) => {
     console.log(err.message);
   });
 
