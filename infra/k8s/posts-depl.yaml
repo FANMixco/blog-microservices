@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: post-depl
+  name: posts-depl
 spec:
   replicas: 1
   #take a look of all created pods with the name posts
@@ -29,12 +29,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: posts-cluster-srv
+  name: posts-clusterip-srv
 spec:
   selector:
-    app: posts-cluster
+    app: posts
   ports:
-    - name: posts-cluster
+    - name: posts
       protocol: TCP
       port: 4000
       targetPort: 4000
