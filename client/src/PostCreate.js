@@ -9,7 +9,7 @@ export default () => {
 
         //it requires a change in C:\Windows\System32\Drivers\etc\hosts or it´s equivalent in macOS
         //you have to add 127.0.0.1 posts.com this will trick Windows
-        await axios.post('http://posts.com/create', {
+        await axios.post('http://posts.com/posts/create', {
             title
         });
 
