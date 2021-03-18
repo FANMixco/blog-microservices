@@ -1,9 +1,9 @@
 apiVersion: skaffold/v2beta12
 kind: Config
+#starts skaffold, recreates pods, services, etc. and stops all if skaffold stops
 deploy:
-  #starts skaffold, recreates pods, services, etc. and stops all if skaffold stops
   kubectl:
-    manifest:
+    manifests:
       - ./infra/k8s/*
 build:
   local:
@@ -23,7 +23,7 @@ build:
         dockerfile: Dockerfile
       sync:
         manual:
-          - src: 'src/**/*.js'
+          - src: '*.js'
             dest: .
     - image: fanmixco/event-bus
       context: event-bus
@@ -31,7 +31,7 @@ build:
         dockerfile: Dockerfile
       sync:
         manual:
-          - src: 'src/**/*.js'
+          - src: '*.js'
             dest: .
     - image: fanmixco/moderation
       context: moderation
@@ -39,7 +39,7 @@ build:
         dockerfile: Dockerfile
       sync:
         manual:
-          - src: 'src/**/*.js'
+          - src: '*.js'
             dest: .
     - image: fanmixco/posts
       context: posts
@@ -47,7 +47,7 @@ build:
         dockerfile: Dockerfile
       sync:
         manual:
-          - src: 'src/**/*.js'
+          - src: '*.js'
             dest: .
     - image: fanmixco/query
       context: query
@@ -55,5 +55,5 @@ build:
         dockerfile: Dockerfile
       sync:
         manual:
-          - src: 'src/**/*.js'
+          - src: '*.js'
             dest: .
