@@ -1,0 +1,40 @@
+#collection of buckets
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-depl
+spec:
+  replicas: 1
+  #take a look of all created pods with the name client
+  selector:
+    matchLabels:
+      app: client
+  #exact configuration of the pod to create
+  template:
+    metadata:
+      labels:
+        #kind of css classes
+        app: client
+    #pod configuration
+    spec:
+      containers:
+      - name: client
+        image: fanmixco/client:latest
+        #imagePullPolicy: Never
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "1000m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-srv
+spec:
+  selector:
+    app: client
+  ports:
+    - name: client
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

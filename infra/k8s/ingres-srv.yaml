@@ -1,0 +1,42 @@
+#mandatory command: kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.44.0/deploy/static/provider/cloud/deploy.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-srv
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/use-regex: 'true'
+spec:
+  rules:
+  - host: posts.com
+    http:
+      paths:
+      #more info: https://kubernetes.io/docs/concepts/services-networking/ingress/
+      - pathType: Prefix
+        path: "/posts/create"
+        backend:
+          service:
+            name: posts-clusterip-srv
+            port:
+              number: 4000
+      - pathType: Prefix
+        path: "/posts"
+        backend:
+          service:
+            name: query-srv
+            port:
+              number: 4002
+      - pathType: Prefix
+        path: "/posts/?(.*)/comments"
+        backend:
+          service:
+            name: comments-srv
+            port:
+              number: 4001
+      - pathType: Prefix
+        path: "/?(.*)" #this is for react
+        backend:
+          service:
+            name: client-srv
+            port:
+              number: 3000

@@ -1,0 +1,40 @@
+#collection of buckets
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: moderation-depl
+spec:
+  replicas: 1
+  #take a look of all created pods with the name moderation
+  selector:
+    matchLabels:
+      app: moderation
+  #exact configuration of the pod to create
+  template:
+    metadata:
+      labels:
+        #kind of css classes
+        app: moderation
+    #pod configuration
+    spec:
+      containers:
+      - name: moderation
+        image: fanmixco/moderation:latest
+        #imagePullPolicy: Never
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: moderation-srv
+spec:
+  selector:
+    app: moderation
+  ports:
+    - name: moderation
+      protocol: TCP
+      port: 4003
+      targetPort: 4003
